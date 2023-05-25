@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.InputSystem;
 
 public class DroneController : MonoBehaviour
 {
@@ -39,5 +40,12 @@ public class DroneController : MonoBehaviour
 
         playerVelocity.y += gravityValue * Time.deltaTime;
         controller.Move(playerVelocity * Time.deltaTime);
+
+
+        if (Keyboard.current.tKey.wasPressedThisFrame)
+        {
+            FindObjectOfType<Drone>().TurnOffDroneControls();
+            FindObjectOfType<SwitchCharacter>().TurnBackPlayerControls();
+        }
     }
 }
