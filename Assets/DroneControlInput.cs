@@ -49,6 +49,11 @@ public class DroneControlInput : MonoBehaviour
         return droneInput.Drone.Look.ReadValue<Vector2>();
     }
 
+    public Vector2 GetDroneFLying()
+    {
+        return droneInput.Drone.FlyUpDown.ReadValue<Vector2>();
+    }
+
     /*[Header("Movement")]
         public float moveSpeed;
         private Vector2 curMovementInput;

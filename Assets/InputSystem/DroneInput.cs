@@ -29,7 +29,7 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
             ""actions"": [
                 {
                     ""name"": ""Move"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""dbb8ab44-e1c9-4266-b2b1-ec4a60272ee7"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
@@ -47,12 +47,30 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
                 },
                 {
                     ""name"": ""Look"",
-                    ""type"": ""PassThrough"",
+                    ""type"": ""Value"",
                     ""id"": ""4e6eb593-2dc2-4b32-976d-6c8088ffc343"",
                     ""expectedControlType"": ""Vector2"",
                     ""processors"": """",
                     ""interactions"": """",
                     ""initialStateCheck"": true
+                },
+                {
+                    ""name"": ""FlyUpDown"",
+                    ""type"": ""Button"",
+                    ""id"": ""36036e4c-10a4-4a40-aea6-41bc54f249a0"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
+                },
+                {
+                    ""name"": ""ToggleFlying"",
+                    ""type"": ""Button"",
+                    ""id"": ""5c1cce52-6916-4f48-b309-af825d6cb3c6"",
+                    ""expectedControlType"": ""Button"",
+                    ""processors"": """",
+                    ""interactions"": """",
+                    ""initialStateCheck"": false
                 }
             ],
             ""bindings"": [
@@ -125,11 +143,55 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
                 {
                     ""name"": """",
                     ""id"": ""c8cc77a5-3525-49d2-8efa-c7abb76a9edd"",
-                    ""path"": ""<Mouse>/delta"",
+                    ""path"": ""<Pointer>/delta"",
+                    ""interactions"": """",
+                    ""processors"": ""ScaleVector2"",
+                    ""groups"": """",
+                    ""action"": ""Look"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""1D Axis"",
+                    ""id"": ""1bca7a77-bec0-4345-b3b7-dd3032d421d2"",
+                    ""path"": ""1DAxis"",
                     ""interactions"": """",
                     ""processors"": """",
                     ""groups"": """",
-                    ""action"": ""Look"",
+                    ""action"": ""FlyUpDown"",
+                    ""isComposite"": true,
+                    ""isPartOfComposite"": false
+                },
+                {
+                    ""name"": ""negative"",
+                    ""id"": ""33cdb6f1-2381-41a5-a4b6-2cdab174c536"",
+                    ""path"": ""<Keyboard>/z"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyUpDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": ""positive"",
+                    ""id"": ""3d98b081-2ee5-467e-af50-29f6fe0d1a2d"",
+                    ""path"": ""<Keyboard>/x"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""FlyUpDown"",
+                    ""isComposite"": false,
+                    ""isPartOfComposite"": true
+                },
+                {
+                    ""name"": """",
+                    ""id"": ""a093dcb7-0741-4884-a998-acae14c768ab"",
+                    ""path"": ""<Keyboard>/q"",
+                    ""interactions"": """",
+                    ""processors"": """",
+                    ""groups"": """",
+                    ""action"": ""ToggleFlying"",
                     ""isComposite"": false,
                     ""isPartOfComposite"": false
                 }
@@ -143,6 +205,8 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
         m_Drone_Move = m_Drone.FindAction("Move", throwIfNotFound: true);
         m_Drone_Interact = m_Drone.FindAction("Interact", throwIfNotFound: true);
         m_Drone_Look = m_Drone.FindAction("Look", throwIfNotFound: true);
+        m_Drone_FlyUpDown = m_Drone.FindAction("FlyUpDown", throwIfNotFound: true);
+        m_Drone_ToggleFlying = m_Drone.FindAction("ToggleFlying", throwIfNotFound: true);
     }
 
     public void Dispose()
@@ -205,6 +269,8 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
     private readonly InputAction m_Drone_Move;
     private readonly InputAction m_Drone_Interact;
     private readonly InputAction m_Drone_Look;
+    private readonly InputAction m_Drone_FlyUpDown;
+    private readonly InputAction m_Drone_ToggleFlying;
     public struct DroneActions
     {
         private @DroneInput m_Wrapper;
@@ -212,6 +278,8 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
         public InputAction @Move => m_Wrapper.m_Drone_Move;
         public InputAction @Interact => m_Wrapper.m_Drone_Interact;
         public InputAction @Look => m_Wrapper.m_Drone_Look;
+        public InputAction @FlyUpDown => m_Wrapper.m_Drone_FlyUpDown;
+        public InputAction @ToggleFlying => m_Wrapper.m_Drone_ToggleFlying;
         public InputActionMap Get() { return m_Wrapper.m_Drone; }
         public void Enable() { Get().Enable(); }
         public void Disable() { Get().Disable(); }
@@ -230,6 +298,12 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
                 @Look.started -= m_Wrapper.m_DroneActionsCallbackInterface.OnLook;
                 @Look.performed -= m_Wrapper.m_DroneActionsCallbackInterface.OnLook;
                 @Look.canceled -= m_Wrapper.m_DroneActionsCallbackInterface.OnLook;
+                @FlyUpDown.started -= m_Wrapper.m_DroneActionsCallbackInterface.OnFlyUpDown;
+                @FlyUpDown.performed -= m_Wrapper.m_DroneActionsCallbackInterface.OnFlyUpDown;
+                @FlyUpDown.canceled -= m_Wrapper.m_DroneActionsCallbackInterface.OnFlyUpDown;
+                @ToggleFlying.started -= m_Wrapper.m_DroneActionsCallbackInterface.OnToggleFlying;
+                @ToggleFlying.performed -= m_Wrapper.m_DroneActionsCallbackInterface.OnToggleFlying;
+                @ToggleFlying.canceled -= m_Wrapper.m_DroneActionsCallbackInterface.OnToggleFlying;
             }
             m_Wrapper.m_DroneActionsCallbackInterface = instance;
             if (instance != null)
@@ -243,6 +317,12 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
                 @Look.started += instance.OnLook;
                 @Look.performed += instance.OnLook;
                 @Look.canceled += instance.OnLook;
+                @FlyUpDown.started += instance.OnFlyUpDown;
+                @FlyUpDown.performed += instance.OnFlyUpDown;
+                @FlyUpDown.canceled += instance.OnFlyUpDown;
+                @ToggleFlying.started += instance.OnToggleFlying;
+                @ToggleFlying.performed += instance.OnToggleFlying;
+                @ToggleFlying.canceled += instance.OnToggleFlying;
             }
         }
     }
@@ -252,5 +332,7 @@ public partial class @DroneInput : IInputActionCollection2, IDisposable
         void OnMove(InputAction.CallbackContext context);
         void OnInteract(InputAction.CallbackContext context);
         void OnLook(InputAction.CallbackContext context);
+        void OnFlyUpDown(InputAction.CallbackContext context);
+        void OnToggleFlying(InputAction.CallbackContext context);
     }
 }
