@@ -23,7 +23,7 @@ public class NoPowerToSecondDoor : MonoBehaviour
         PowerOn.OnPowerOn -= TurnsOnPower;
     }
 
-    private void OnCollisionEnter(Collision collision)
+    private void OnTriggerEnter(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player") && !hasPower)
         {
@@ -31,7 +31,7 @@ public class NoPowerToSecondDoor : MonoBehaviour
         }
     }
 
-    private void OnCollisionExit(Collision collision)
+    private void OnTriggerExit(Collider collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
