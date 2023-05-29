@@ -2749,6 +2749,19 @@ MonoBehaviour:
   door: {fileID: 628550586}
   doorType: 0
   prompt: '[E] to insert key'
+--- !u!114 &397076984
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 397076978}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 517314332f580d44b97b38ed0cdcbe55, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  missingKeyText: {fileID: 516876564}
 --- !u!1001 &398085375
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -8100,6 +8113,18 @@ BoxCollider:
   serializedVersion: 2
   m_Size: {x: 0.7667084, y: 0.1876572, z: 1.0918655}
   m_Center: {x: -0.0057373047, y: -0.019496605, z: 0.107608795}
+--- !u!114 &937174283
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 937174277}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c40a9ec99e0669d47ba8228bc3688062, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1001 &937180176
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -13435,6 +13460,7 @@ GameObject:
   - component: {fileID: 1660034759}
   - component: {fileID: 1654046373}
   - component: {fileID: 1660229748}
+  - component: {fileID: 1660229749}
   m_Layer: 0
   m_Name: console (1)
   m_TagString: Untagged
@@ -13470,7 +13496,7 @@ Transform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 146
+  m_RootOrder: 147
   m_LocalEulerAnglesHint: {x: 0, y: 90, z: 0}
 --- !u!114 &1660229748
 MonoBehaviour:
@@ -13484,6 +13510,19 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f688e05410101db4d9581c526d5e437d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1660229749
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1659961057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 49fbf2a75b22f0b41bfe5f54940112b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  noPowerText: {fileID: 516876564}
 --- !u!1001 &1685691028
 PrefabInstance:
   m_ObjectHideFlags: 0

@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using System;
 
 public class PowerOn : MonoBehaviour, IDroneInteractable
 {
@@ -9,12 +10,16 @@ public class PowerOn : MonoBehaviour, IDroneInteractable
     [SerializeField] GameObject powerLight;
     [SerializeField] string text;
 
+    public static event Action OnPowerOn;
+    public static event Action OnLayerChange;
     public string InteractionPrompt => text;
 
     public void OnInteract(DroneInteractor interactor)
     {
         powerLight.SetActive(true);
-        FindObjectOfType<CheckPower>().ConsoleCheckEnabled();
+        //FindObjectOfType<CheckPower>().ConsoleCheckEnabled();
+        OnPowerOn?.Invoke();
+        OnLayerChange?.Invoke();
     }
 
     private void OnTriggerEnter(Collider collision)

@@ -15,4 +15,14 @@ public class CheckPower : MonoBehaviour
     {
         gameObject.layer = layerChange;
     }
+
+    private void OnEnable()
+    {
+        PowerOn.OnLayerChange += ConsoleCheckEnabled;
+    }
+
+    private void OnDisable()
+    {
+        PowerOn.OnLayerChange -= ConsoleCheckEnabled;
+    }
 }
