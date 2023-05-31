@@ -6,12 +6,13 @@ public class Door : MonoBehaviour
 {
 
     [SerializeField] DoorType thisDoor;
-
+    AudioManager audioManager;
     Animator animation;
 
     private void Awake()
     {
         animation = GetComponent<Animator>();
+        audioManager = FindObjectOfType<AudioManager>();
     }
 
 
@@ -22,6 +23,7 @@ public class Door : MonoBehaviour
         {
             if (animation == null) { return; }
             animation.SetBool("OpenDoor", true);
+            audioManager.DoorSound();
         }
     }
 }

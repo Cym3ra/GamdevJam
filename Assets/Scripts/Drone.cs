@@ -12,13 +12,19 @@ public class Drone : MonoBehaviour, IInteractable
     [SerializeField] CinemachineVirtualCamera droneCamera;
     [SerializeField] PlayerInput droneInput;
     [SerializeField] TextMeshProUGUI dronetext;
-
+    AudioManager audioManager;
     [SerializeField] string prompt;
 
     public string InteractionPrompt => prompt;
 
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
+
     public void Interact(Interactor interactor)
     {
+        audioManager.SwitchCharacterSound();
         charControl.enabled = true;
         droneController.enabled = true;
         droneCamera.Priority = 20;
@@ -29,6 +35,7 @@ public class Drone : MonoBehaviour, IInteractable
 
     public void TurnOffDroneControls()
     {
+        audioManager.SwitchCharacterSound();
         charControl.enabled = false;
         droneController.enabled = false;
         droneCamera.Priority = 5;

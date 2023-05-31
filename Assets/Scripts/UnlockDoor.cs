@@ -4,8 +4,13 @@ using UnityEngine;
 
 public class UnlockDoor : MonoBehaviour
 {
-
+    AudioManager audioManager;
     [SerializeField] DoorType doorType;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
@@ -13,6 +18,7 @@ public class UnlockDoor : MonoBehaviour
 
         if (inventory == null) { return; }
 
+        audioManager.PickupKeySound();
         inventory.AddDoorKey(doorType);
         Destroy(gameObject);
     }

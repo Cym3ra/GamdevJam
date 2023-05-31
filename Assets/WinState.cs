@@ -7,12 +7,20 @@ public class WinState : MonoBehaviour
 {
     [SerializeField] Animator fadeAnim;
     [SerializeField] GameObject winMenu;
+    AudioManager audioManager;
+
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void OnTriggerEnter(Collider other)
     {
         if (other.CompareTag("Player"))
         {
             fadeAnim.SetBool("FadeOut", true);
+            audioManager.WinSound();
             StartCoroutine(WinMenu());
         }
     }

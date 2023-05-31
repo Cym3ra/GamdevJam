@@ -8,8 +8,14 @@ public class RemovePillars : MonoBehaviour, IDroneInteractable
     [SerializeField] List<PillarsRemove> pillars = new List<PillarsRemove>();
     [SerializeField] TextMeshProUGUI prompt;
     [SerializeField] string text;
+    AudioManager audioManager;
 
     public string InteractionPrompt => text;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     public void OnInteract(DroneInteractor interactor)
     {
@@ -17,6 +23,7 @@ public class RemovePillars : MonoBehaviour, IDroneInteractable
         {
             pillars[i].RemovePillars();
         }
+        audioManager.PillarsAnimSound();
     }
 
     private void OnTriggerEnter(Collider other)

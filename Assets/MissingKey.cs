@@ -5,9 +5,14 @@ using TMPro;
 
 public class MissingKey : MonoBehaviour
 {
-
+    AudioManager audioManager;
     bool hasKey = false;
     [SerializeField] TextMeshProUGUI missingKeyText;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void HasKey()
     {
@@ -29,6 +34,7 @@ public class MissingKey : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !hasKey)
         {
             missingKeyText.text = string.Format("Seems to need a key, I should check the room");
+            audioManager.MissingItem();
         }
     }
 

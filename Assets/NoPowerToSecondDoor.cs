@@ -7,6 +7,12 @@ public class NoPowerToSecondDoor : MonoBehaviour
 {
     [SerializeField] TextMeshProUGUI noPowerText;
     bool hasPower = false;
+    AudioManager audioManager;
+
+    private void Start()
+    {
+        audioManager = FindObjectOfType<AudioManager>();
+    }
 
     private void TurnsOnPower()
     {
@@ -28,6 +34,7 @@ public class NoPowerToSecondDoor : MonoBehaviour
         if (collision.gameObject.CompareTag("Player") && !hasPower)
         {
             noPowerText.text = string.Format("Doesn't seem to have any power. I wonder if the generator is in the other room");
+            audioManager.MissingItem();
         }
     }
 
